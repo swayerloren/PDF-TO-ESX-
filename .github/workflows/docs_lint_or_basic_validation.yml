@@ -1,0 +1,102 @@
+name: Docs Lint Or Basic Validation
+
+on:
+  pull_request:
+    paths:
+      - "**/*.md"
+      - ".github/**"
+      - ".editorconfig"
+      - ".gitattributes"
+      - ".gitignore"
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - "**/*.md"
+      - ".github/**"
+      - ".editorconfig"
+      - ".gitattributes"
+      - ".gitignore"
+
+jobs:
+  docs-and-repo-basics:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate markdown links
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          import sys
+
+          root = Path.cwd()
+          files = [path for path in root.rglob("*.md") if ".venv" not in path.parts]
+          pattern = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
+          errors = []
+          for file_path in files:
+              text = file_path.read_text(encoding="utf-8")
+              for match in pattern.finditer(text):
+                  target = match.group(1).strip()
+                  if not target or target.startswith(("http://", "https://", "mailto:", "#")):
+                      continue
+                  target = target.split("#", 1)[0]
+                  resolved = (file_path.parent / target).resolve()
+                  if not resolved.exists():
+                      errors.append(f"{file_path.relative_to(root)} -> {target}")
+          if errors:
+              print("Broken markdown links found:")
+              for error in errors:
+                  print(error)
+              sys.exit(1)
+          print(f"Checked {len(files)} markdown files. All local links resolved.")
+          PY
+
+      - name: Check public repo files exist
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import sys
+
+          root = Path.cwd()
+          required = [
+              "README.md",
+              "LICENSE",
+              "CODE_OF_CONDUCT.md",
+              "CONTRIBUTING.md",
+              "SECURITY.md",
+              "SUPPORT.md",
+              "CHANGELOG.md",
+              "ROADMAP.md",
+              "RELEASE_CHECKLIST.md",
+              "OPEN_SOURCE_PHILOSOPHY.md",
+              "MAINTAINER_GUIDE.md",
+              "PUBLIC_RELEASE_NOTES_DRAFT.md",
+              ".editorconfig",
+              ".gitattributes",
+              ".gitignore",
+              ".github/ISSUE_TEMPLATE/bug_report.md",
+              ".github/ISSUE_TEMPLATE/feature_request.md",
+              ".github/ISSUE_TEMPLATE/parser_layout_support.md",
+              ".github/ISSUE_TEMPLATE/esx_output_problem.md",
+              ".github/ISSUE_TEMPLATE/config.yml",
+              ".github/PULL_REQUEST_TEMPLATE.md",
+              "docs_repo/09_RELEASE_AND_OPEN_SOURCE/PUBLIC_REPO_COMPLETION_STATUS.md",
+          ]
+          missing = [path for path in required if not (root / path).exists()]
+          if missing:
+              print("Missing required public repo files:")
+              for path in missing:
+                  print(path)
+              sys.exit(1)
+          print("Required public repo files are present.")
+          PY
