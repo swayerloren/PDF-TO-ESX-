@@ -1,8 +1,30 @@
 # PDF TO ESX AGENT
 
-`PDF TO ESX AGENT` is a Windows desktop app that converts one or more insurance estimate PDFs into structured ESX-style export artifacts using a local, inspectable pipeline.
+Open-source Windows desktop app and Python pipeline for converting insurance estimate PDFs into structured ESX/XML export artifacts.
 
-## Why This Project Matters
+`PDF TO ESX AGENT` is built for messy real-world insurance estimate packets. It combines PDF text extraction, OCR fallback, estimate parsing, canonical normalization, and deterministic ESX-style export in one local, inspectable workflow.
+
+| At A Glance | Details |
+| --- | --- |
+| Helps | developers, estimators, restoration/roofing teams, and insurance-claims workflow builders |
+| Converts | one or more insurance estimate PDFs into `*.esx`, `*.esx.xml`, and `*.canonical.json` |
+| Handles | native-text PDFs, scan-heavy PDFs, OCR fallback, and multi-PDF estimate merges |
+| Runs As | source app or packaged Windows executable |
+| Current Maturity | real and validated, but still early in parser coverage and not a proprietary `XACTDOC.ZIPXML` writer |
+
+## Start Here
+
+| If you want to... | Start here |
+| --- | --- |
+| understand the project quickly | [docs_repo/00_START_HERE/PROJECT_OVERVIEW.md](docs_repo/00_START_HERE/PROJECT_OVERVIEW.md) |
+| run the app from source | [Quick Start](#quick-start) |
+| build the Windows executable | [docs/WINDOWS_EXE_BUILD.md](docs/WINDOWS_EXE_BUILD.md) |
+| review packaged validation evidence | [docs/PACKAGED_APP_VALIDATION.md](docs/PACKAGED_APP_VALIDATION.md) |
+| understand the architecture | [docs_repo/02_ARCHITECTURE/SYSTEM_ARCHITECTURE.md](docs_repo/02_ARCHITECTURE/SYSTEM_ARCHITECTURE.md) |
+| explore the full docs knowledge base | [docs_repo/00_START_HERE/README_DOCS_REPO.md](docs_repo/00_START_HERE/README_DOCS_REPO.md) |
+| contribute | [CONTRIBUTING.md](CONTRIBUTING.md) and [docs_repo/06_CONTRIBUTING/CONTRIBUTING.md](docs_repo/06_CONTRIBUTING/CONTRIBUTING.md) |
+
+## Why This Repo Exists
 
 Insurance estimate PDFs are messy in the ways that matter most for automation:
 
@@ -11,25 +33,25 @@ Insurance estimate PDFs are messy in the ways that matter most for automation:
 - scanned packets often need OCR
 - totals, line items, and supplements can conflict
 
-This project exists to provide a real local-first converter and a codebase that other developers can inspect, debug, and improve without relying on a black-box service.
+This repo exists to provide a real local-first converter and a codebase that other developers can inspect, debug, and improve without relying on a black-box service.
 
-## Project Summary
+## What The App Does
 
-The app takes estimate PDFs, detects whether pages are text-based or scan-heavy, applies OCR when needed, extracts structured estimate data, normalizes that data into a canonical estimate model, and then generates:
+The app accepts estimate PDFs, detects whether pages are text-based or scan-heavy, applies OCR when useful, extracts structured estimate data, normalizes that data into a canonical estimate model, and then generates:
 
 - `*.esx`
 - `*.esx.xml`
 - `*.canonical.json`
 
-This is a real runnable application, not a mockup. The pipeline is modular and intentionally split between PDF ingestion, parsing, canonical normalization, export generation, and UI orchestration.
+The pipeline is intentionally split between PDF ingestion, parsing, canonical normalization, export generation, and UI orchestration.
 
-## Status
+## Current Status
 
 - current public release baseline: `v0.2.0`
 - real and runnable today
-- still early in parser coverage and ESX compatibility
 - Windows-focused
-- packaged Windows executable build now supported through PyInstaller
+- packaged Windows executable build available through PyInstaller
+- still early in parser coverage and ESX compatibility evidence
 
 ## Core Capabilities
 
@@ -157,6 +179,8 @@ Start here:
 - [docs_repo/07_PROJECT_HISTORY/CHANGELOG.md](docs_repo/07_PROJECT_HISTORY/CHANGELOG.md)
 - [docs_repo/ARCHITECTURE_DIAGRAM_NOTES.md](docs_repo/ARCHITECTURE_DIAGRAM_NOTES.md)
 - [docs_repo/OPEN_SOURCE_HANDOFF_SUMMARY.md](docs_repo/OPEN_SOURCE_HANDOFF_SUMMARY.md)
+- [docs_repo/09_RELEASE_AND_OPEN_SOURCE/PUBLIC_POSITIONING.md](docs_repo/09_RELEASE_AND_OPEN_SOURCE/PUBLIC_POSITIONING.md)
+- [docs_repo/09_RELEASE_AND_OPEN_SOURCE/GITHUB_DISCOVERABILITY.md](docs_repo/09_RELEASE_AND_OPEN_SOURCE/GITHUB_DISCOVERABILITY.md)
 
 Where to go by task:
 
@@ -172,6 +196,7 @@ Where to go by task:
 | debug failures | [docs_repo/05_TESTING_AND_DEBUG/DEBUGGING_GUIDE.md](docs_repo/05_TESTING_AND_DEBUG/DEBUGGING_GUIDE.md) |
 | review project evolution | [docs_repo/07_PROJECT_HISTORY/CHANGELOG.md](docs_repo/07_PROJECT_HISTORY/CHANGELOG.md) |
 | understand release status and next steps | [docs_repo/09_RELEASE_AND_OPEN_SOURCE/ROADMAP.md](docs_repo/09_RELEASE_AND_OPEN_SOURCE/ROADMAP.md) |
+| improve the GitHub landing page or public positioning | [docs_repo/09_RELEASE_AND_OPEN_SOURCE/GITHUB_DISCOVERABILITY.md](docs_repo/09_RELEASE_AND_OPEN_SOURCE/GITHUB_DISCOVERABILITY.md) |
 
 Implementation/build-phase docs that still matter:
 
