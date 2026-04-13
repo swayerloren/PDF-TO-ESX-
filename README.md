@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # PDF TO ESX AGENT
 
 `PDF TO ESX AGENT` is a Windows desktop app that converts one or more insurance estimate PDFs into structured ESX-style export artifacts using a local, inspectable pipeline.
@@ -214,3 +215,7 @@ See:
 
 - [LICENSE](LICENSE)
 - [OPEN_SOURCE_PHILOSOPHY.md](OPEN_SOURCE_PHILOSOPHY.md)
+=======
+# PDF-TO-ESX-
+Convert real-world insurance estimate PDFs into structured ESX files using a local parsing and normalization pipeline. Built for contractors, public adjusters, and developers working with claim data.
+>>>>>>> 7f84b834eac048021de8460669cdf5d6aa451cd5
