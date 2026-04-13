@@ -10,6 +10,7 @@
 - Python 3.12
 - local virtual environment in `.venv`
 - dependencies from `requirements.txt`
+- build dependencies from `requirements-build.txt` for packaged validation
 
 ## Automated Checks
 
@@ -19,6 +20,7 @@ Commands run:
 .\.venv\Scripts\python.exe -m compileall src run_app.py
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 .\scripts\Verify-Clean-Environment.ps1
+.\scripts\Build-Windows-Exe.ps1
 ```
 
 Current automated coverage includes:
@@ -27,7 +29,9 @@ Current automated coverage includes:
 - output-stem naming and filename sanitization coverage
 - invalid PDF rejection smoke test
 - missing-file, non-PDF, and invalid-output-folder rejection coverage
+- source-vs-frozen settings coverage
 - clean-environment reinstall plus UI startup smoke test
+- packaged executable build and startup/conversion smoke
 
 ## Real PDF Batch Validation
 
@@ -71,6 +75,7 @@ Batch summary:
 ## Output Locations Used During Testing
 
 - `sample_output/generated/`
+- `%TEMP%\pdf-to-esx-agent-packaged-convert\`
 - temporary batch-validation output folders created during engineering verification
 
 The workspace is cleaned after validation runs, so large generated artifacts are not retained in the final repo state.

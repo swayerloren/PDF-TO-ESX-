@@ -19,13 +19,13 @@ def configure_logging(settings: AppSettings) -> logging.Logger:
     root_logger.handlers.clear()
     root_logger.setLevel(logging.DEBUG if settings.debug else logging.INFO)
 
-    console_handler = logging.StreamHandler()
-    console_handler.setFormatter(formatter)
-
     file_handler = logging.FileHandler(Path(log_path), encoding="utf-8")
     file_handler.setFormatter(formatter)
 
-    root_logger.addHandler(console_handler)
+    if not settings.frozen:
+        console_handler = logging.StreamHandler()
+        console_handler.setFormatter(formatter)
+        root_logger.addHandler(console_handler)
     root_logger.addHandler(file_handler)
 
     logger = logging.getLogger("pdf_to_esx_agent")

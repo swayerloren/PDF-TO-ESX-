@@ -4,9 +4,9 @@
 
 The repo currently documents itself as:
 
-- `v0.1.0`
+- `v0.2.0`
 
-This is the first working open-source foundation release.
+This is the current packaged milestone after the first working open-source foundation release.
 
 ## Suggested Semantics
 

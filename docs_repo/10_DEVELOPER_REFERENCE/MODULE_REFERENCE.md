@@ -3,7 +3,7 @@
 ## `app`
 
 - `bootstrap.py`
-  builds settings, logging, conversion service, and main window
+  builds settings, logging, conversion service, main window, and packaged validation mode
 
 ## `core`
 
@@ -16,7 +16,7 @@
 - `numbers.py`
   decimal helpers and numeric token parsing
 - `settings.py`
-  repo-relative runtime settings
+  source-vs-frozen runtime settings, log paths, and default output paths
 - `text.py`
   text normalization and safe output naming
 

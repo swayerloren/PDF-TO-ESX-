@@ -2,51 +2,67 @@
 
 ## What Works Now
 
-- The Windows desktop app launches from `run_app.py` or `.\scripts\Run-App.ps1`.
-- Users can drag and drop or browse for one or more estimate PDFs.
-- The app validates file selection and output-folder paths before conversion starts.
-- Native-text PDFs and scanned/image-heavy PDFs are routed through the ingestion pipeline correctly, with OCR used when local dependencies are available.
-- Parsed content is normalized into a canonical estimate model before export.
-- The export layer writes `*.esx`.
-- The export layer writes `*.esx.xml`.
-- The export layer writes `*.canonical.json`.
-- Generated XML is validated for structure and reference integrity, and the packaged `.esx` archive is validated before success is returned to the UI.
-- Common failure cases now return clear user-facing errors instead of uncaught crashes.
-- Missing files are rejected before conversion starts.
-- Non-PDF inputs are rejected before conversion starts.
-- Unreadable or broken PDFs fail through a conversion error path.
-- Unusable output-folder paths fail through a conversion error path.
-- Empty parses that do not contain line items or usable totals fail before export.
+- The app runs from source through `run_app.py` and `.\scripts\Run-App.ps1`.
+- The app also builds into a real Windows GUI executable through PyInstaller.
+- The packaged artifact launches without a console window through `dist\PDF-TO-ESX-Agent\PDF-TO-ESX-Agent.exe`.
+- Users can add one or more estimate PDFs, choose an output folder, and convert end to end.
+- Native-text PDFs and scan-heavy PDFs both flow through the same ingestion pipeline, with OCR used when text extraction is weak.
+- Parsed data is normalized into a canonical estimate model before export.
+- Successful runs write `*.esx`, `*.esx.xml`, and `*.canonical.json`.
+- XML structure and packaged `.esx` contents are validated before success is returned to the UI.
+- Common failure cases return user-facing validation messages instead of uncaught crashes.
+- The packaged executable also supports a hidden validation path through `--headless-convert` so maintainers can smoke-test the frozen build with a real PDF.
 
 ## What Was Reused From SALES FORCE AGENT
 
-- Document-ingestion patterns for local file handling and PDF-first workflows.
-- OCR routing concepts for mixed native/scanned documents.
-- Parser organization that separates metadata extraction, totals extraction, line-item parsing, and normalization.
-- Canonical-model thinking so the exporter stays isolated from raw parser heuristics.
-- Logging and troubleshooting orientation suited to local agent-style desktop tools.
-- Real fixture PDFs and reference ESX/XML structures used to validate parser behavior and the export shape.
+- Local document-ingestion patterns for PDF-first workflows.
+- OCR-routing ideas for mixed native/scanned packets.
+- Separation between metadata extraction, totals extraction, line-item parsing, and normalization.
+- Canonical-model boundaries so export logic stays isolated from parser heuristics.
+- Logging and troubleshooting patterns appropriate for a local desktop tool.
+- Real fixture PDFs and ESX/XML references used to validate the parser and export shape.
 
 ## ESX Assumptions
 
-- The app writes a standards-based `.esx` zip package with `XACTDOC.XML`, not a proprietary native `XACTDOC.ZIPXML` payload.
-- `XACTDOC` is treated as the root export document based on structures observed in the source agent fixtures.
-- The canonical estimate is the source of truth for export. Missing fields are omitted instead of being filled with fake placeholders.
-- Line items are represented in both human-readable grouped form and compact `SUMITEM` form so the package stays inspectable and deterministic.
-- Numeric fields are normalized before serialization and XML escaping is left to the XML writer.
+- The app writes a standards-based `.esx` zip package with `XACTDOC.XML`.
+- The package is deterministic and structurally validated, but it is not a native proprietary `XACTDOC.ZIPXML` writer.
+- The canonical estimate remains the source of truth for export.
+- Missing values are omitted or left blank rather than filled with invented placeholders.
+- XML escaping and numeric normalization are handled in the export layer instead of being pushed into parser logic.
 
-## Future Improvement Areas
+## Frozen-Mode Support Added
 
-- Add more carrier-specific table parsing for edge-case line-item layouts.
-- Improve OCR-heavy metadata recovery for names and addresses on degraded scans.
-- Expand totals reconciliation for more payment-letter and multi-coverage packets.
-- Replace the current open zip-based ESX packaging with a native proprietary packer if exact schema/packing details become available.
-- Add broader automated fixture-based regression tests using a maintained local sample set.
-- Package the desktop app as an installer or standalone executable if distribution becomes a requirement.
+- Runtime settings now distinguish between source mode and frozen mode.
+- Frozen-mode path detection now prefers Windows known folders before environment-variable fallbacks.
+- Source mode keeps logs in `logs\` and outputs in `sample_output\generated\`.
+- Frozen mode keeps logs in `%LOCALAPPDATA%\PDF-TO-ESX-Agent\logs\`.
+- Frozen mode defaults user output to `%USERPROFILE%\Documents\PDF TO ESX AGENT\generated\`.
+- The packaged app no longer creates the default output folder at startup; it is created only when needed.
+- Frozen-mode logging is file-only.
+- The UI now points users to the correct runtime log file when failures occur.
+- A PyInstaller spec file now captures the packaging contract for OCR models, `tkinterdnd2`, and `onnxruntime`.
+- The packaging script removes transient build output and strips unused metadata directories from the final bundle.
+
+## Validation Completed On April 12, 2026
+
+- `.\.venv\Scripts\python.exe -m compileall src run_app.py tests`
+- `.\.venv\Scripts\python.exe -m unittest discover -s tests -v`
+- `.\scripts\Verify-Clean-Environment.ps1`
+- `.\scripts\Build-Windows-Exe.ps1`
+- packaged executable startup smoke through `dist\PDF-TO-ESX-Agent\PDF-TO-ESX-Agent.exe`
+- packaged real conversion smoke against `Statefarm estimate.pdf`
+- copied-release-folder packaged validation from a temp path with spaces
+
+Packaged conversion artifact verified:
+
+- `dist\PDF-TO-ESX-Agent\PDF-TO-ESX-Agent.exe`
+- `%TEMP%\pdf-to-esx-agent-packaged-convert\Statefarm estimate.esx`
+- `%TEMP%\pdf-to-esx-agent-packaged-convert\Statefarm estimate.esx.xml`
+- `%TEMP%\pdf-to-esx-agent-packaged-convert\Statefarm estimate.canonical.json`
 
 ## Exact Launch Steps
 
-From the repo root in a VS Code terminal:
+From source:
 
 ```powershell
 py -3 -m venv .venv
@@ -55,18 +71,22 @@ py -3 -m venv .venv
 .\scripts\Run-App.ps1
 ```
 
-Optional clean-environment verification:
+Build the Windows executable:
 
 ```powershell
-.\scripts\Verify-Clean-Environment.ps1
+.\scripts\Build-Windows-Exe.ps1
 ```
 
-## Exact Use Steps
+Launch the packaged app:
 
-1. Launch the app.
-2. Drag one or more insurance estimate PDFs into the upload area, or click `Add PDFs`.
-3. Confirm the selected file list.
-4. Choose an output folder or keep the default `sample_output\generated`.
-5. Click `Convert To ESX`.
-6. Watch the banner, progress bar, validation panel, and preview panel.
-7. Open the output folder and use the generated `*.esx`, `*.esx.xml`, and `*.canonical.json` files.
+```powershell
+.\dist\PDF-TO-ESX-Agent\PDF-TO-ESX-Agent.exe
+```
+
+## Future Improvement Areas
+
+- Add more carrier-specific parsing coverage for edge-case layouts.
+- Improve OCR-heavy metadata recovery on degraded scans.
+- Expand totals reconciliation across more mixed summary/detail packets.
+- Add installer/signing work if public end-user distribution grows beyond zipped `onedir` artifacts.
+- Keep growing fixture-based regression coverage for parser and export behavior.

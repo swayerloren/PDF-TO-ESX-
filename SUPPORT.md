@@ -23,7 +23,9 @@ Please gather as much of the following as you can:
 - operating system
 - whether the PDF is mostly text-based or scanned
 - whether OCR was used
-- relevant log excerpts from `logs/pdf_to_esx_agent.log`
+- relevant log excerpts from the runtime log file
+  source mode: `logs/pdf_to_esx_agent.log`
+  packaged mode: `%LOCALAPPDATA%\PDF-TO-ESX-Agent\logs\pdf_to_esx_agent.log`
 - the generated `*.canonical.json` and `*.esx.xml` if safe to share
 - exact expected behavior versus actual behavior
 

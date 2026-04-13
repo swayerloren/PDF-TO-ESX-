@@ -10,11 +10,12 @@
 | governance and community files | ready | license, conduct, support, security, PR template, and issue templates are now present |
 | parser coverage claims | partial | meaningful real coverage exists, but not universal layout support |
 | export compatibility claims | partial | deterministic and validated, but not a native proprietary writer |
-| packaging for non-developers | not ready | no installer or standalone distribution yet |
+| packaging for non-developers | ready with limits | PyInstaller `onedir` build exists and has been validated, but there is no installer or code signing yet |
 
 ## What Is Ready
 
 - the app is runnable locally
+- the app now builds into a runnable Windows GUI executable
 - the parser/export boundary is clear
 - tests and clean-environment verification exist
 - current ESX assumptions and limitations are documented
@@ -23,7 +24,7 @@
 
 ## What Is Not Fully Ready Yet
 
-- no packaged installer or standalone executable
+- no installer or signed executable yet
 - no broad fixture-based regression suite committed to the repo
 - no native proprietary ESX packer
 - parser coverage is not yet broad enough to claim universal estimate support
@@ -41,6 +42,7 @@ The codebase already has real value as:
 
 - review docs for link accuracy
 - confirm setup steps on a clean machine
+- confirm the packaged build still launches and converts in frozen mode
 - decide what sample fixtures can be shared publicly
 - enable GitHub Private Vulnerability Reporting
 - make sure release notes state the current ESX and parser limits plainly

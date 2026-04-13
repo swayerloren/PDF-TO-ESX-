@@ -14,7 +14,10 @@
 - run unit tests
 - run compileall
 - run `.\scripts\Verify-Clean-Environment.ps1`
+- run `.\scripts\Build-Windows-Exe.ps1`
+- launch `dist\PDF-TO-ESX-Agent\PDF-TO-ESX-Agent.exe`
 - run at least one real conversion smoke with a local fixture
+- run at least one packaged conversion smoke with a local fixture when shipping a desktop artifact
 
 ## Repo Hygiene
 
@@ -22,6 +25,7 @@
 - confirm `sample_output/generated/` is clean
 - confirm logs are not checked in
 - confirm dependency file is current
+- confirm `requirements-build.txt` and `PDF-TO-ESX-Agent.spec` are current
 - confirm docs point to files that actually exist
 - confirm issue templates, PR template, and workflows are present
 
@@ -32,6 +36,7 @@
 - include known limitations and current compatibility language
 - avoid overstating ESX compatibility or parser coverage
 - confirm the public release notes draft still matches the actual repo state
+- confirm packaged-build docs still match the real artifact layout
 
 ## After Release
 

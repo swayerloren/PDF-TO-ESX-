@@ -20,7 +20,8 @@ Detailed release posture and open-source context live in [docs_repo/09_RELEASE_A
 2. improve OCR-heavy extraction reliability
 3. reduce false-positive warnings while keeping uncertainty honest
 4. gather better evidence for ESX compatibility improvements
-5. continue tightening contribution and release processes as outside contributors arrive
+5. harden the packaged Windows release story with repeatable validation and clearer distribution guidance
+6. continue tightening contribution and release processes as outside contributors arrive
 
 ## Explicit Non-Goals Right Now
 

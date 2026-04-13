@@ -41,7 +41,7 @@ What happened instead?
 
 ## Logs And Artifacts
 
-- Relevant `logs/pdf_to_esx_agent.log` lines:
+- Relevant `logs/pdf_to_esx_agent.log` lines or packaged log lines from `%LOCALAPPDATA%\PDF-TO-ESX-Agent\logs\pdf_to_esx_agent.log`:
 - `*.canonical.json` attached if safe:
   yes or no
 - `*.esx.xml` attached if safe:

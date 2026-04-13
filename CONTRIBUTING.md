@@ -49,6 +49,12 @@ At minimum, run the checks relevant to your change:
 .\.venv\Scripts\python.exe -m compileall src run_app.py tests
 ```
 
+When runtime settings, build tooling, or packaged behavior changes:
+
+```powershell
+.\scripts\Build-Windows-Exe.ps1
+```
+
 When parser behavior changes:
 
 - validate against at least one real or realistically redacted PDF layout if available
@@ -69,6 +75,7 @@ Common files to update:
 
 - [CHANGELOG.md](CHANGELOG.md)
 - [ROADMAP.md](ROADMAP.md)
+- [docs/WINDOWS_EXE_BUILD.md](docs/WINDOWS_EXE_BUILD.md)
 - [docs_repo/04_MAPPING_AND_FORMATS/](docs_repo/04_MAPPING_AND_FORMATS/)
 - [docs_repo/05_TESTING_AND_DEBUG/](docs_repo/05_TESTING_AND_DEBUG/)
 - [docs_repo/06_CONTRIBUTING/](docs_repo/06_CONTRIBUTING/)

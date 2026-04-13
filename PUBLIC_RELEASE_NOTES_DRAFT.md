@@ -1,6 +1,6 @@
 # Public Release Notes Draft
 
-## PDF TO ESX AGENT v0.1.0
+## PDF TO ESX AGENT v0.2.0
 
 `PDF TO ESX AGENT` is a Windows desktop application that converts one or more insurance estimate PDFs into structured ESX-style export artifacts using a local, inspectable pipeline.
 
@@ -41,7 +41,7 @@ Current strengths:
 - parser coverage is heuristic rather than universal
 - scanned and OCR-heavy layouts remain the weakest cases
 - `.esx` output is standards-based, not a proven native proprietary `XACTDOC.ZIPXML` writer
-- the project does not yet ship as a packaged installer or standalone `.exe`
+- the repo now builds a Windows `onedir` executable, but it does not yet ship as an installer or signed desktop release
 
 ## Best First Contribution Areas
 

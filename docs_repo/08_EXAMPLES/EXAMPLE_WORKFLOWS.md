@@ -20,7 +20,9 @@
 ## Workflow 3: Debug A Weak Parse
 
 1. Run one problematic PDF.
-2. Inspect `logs/pdf_to_esx_agent.log`.
+2. Inspect the runtime log file.
+   Source mode: `logs/pdf_to_esx_agent.log`
+   Packaged mode: `%LOCALAPPDATA%\PDF-TO-ESX-Agent\logs\pdf_to_esx_agent.log`
 3. Inspect `*.canonical.json`.
 4. Determine whether the issue belongs to ingestion, extraction, merge, or export.
 5. Add a targeted code change and a regression test.

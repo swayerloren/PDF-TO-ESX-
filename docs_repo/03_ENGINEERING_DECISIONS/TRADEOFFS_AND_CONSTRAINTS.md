@@ -22,7 +22,8 @@ Benefit:
 
 Cost:
 
-- not a packaged native installer yet
+- still not an installer or signed native desktop release
+- packaged distribution currently ships as a PyInstaller `onedir` folder
 - UI testing remains lighter than web-app tooling
 
 ## Heuristic Parsing
@@ -35,7 +36,7 @@ Benefit:
 
 Cost:
 
-- carrier coverage is never “done”
+- carrier coverage is never "done"
 - some layouts still require manual improvement over time
 
 ## Standards-Based ESX Packaging

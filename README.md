@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # PDF TO ESX AGENT
 
 `PDF TO ESX AGENT` is a Windows desktop app that converts one or more insurance estimate PDFs into structured ESX-style export artifacts using a local, inspectable pipeline.
@@ -26,11 +25,11 @@ This is a real runnable application, not a mockup. The pipeline is modular and i
 
 ## Status
 
-- current public release baseline: `v0.1.0`
+- current public release baseline: `v0.2.0`
 - real and runnable today
 - still early in parser coverage and ESX compatibility
 - Windows-focused
-- not yet packaged as a standalone installer or `.exe`
+- packaged Windows executable build now supported through PyInstaller
 
 ## Core Capabilities
 
@@ -60,7 +59,7 @@ py -3 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-Run:
+Run from source:
 
 ```powershell
 .\scripts\Run-App.ps1
@@ -77,6 +76,30 @@ Optional clean-environment verification:
 ```powershell
 .\scripts\Verify-Clean-Environment.ps1
 ```
+
+## Windows Executable Build
+
+Build the packaged Windows executable:
+
+```powershell
+.\scripts\Build-Windows-Exe.ps1
+```
+
+The packaged application is produced at:
+
+- `dist\PDF-TO-ESX-Agent\PDF-TO-ESX-Agent.exe`
+
+Release/install guidance for non-developers:
+
+- distribute the entire `dist\PDF-TO-ESX-Agent\` folder, not just the `.exe`
+- zip that folder for handoff or release download
+- users should unzip it to a normal writable location and launch `PDF-TO-ESX-Agent.exe`
+- there is no installer yet; the `onedir` layout is intentional for reliability
+
+Build details and troubleshooting:
+
+- [docs/WINDOWS_EXE_BUILD.md](docs/WINDOWS_EXE_BUILD.md)
+- [docs/PACKAGED_APP_VALIDATION.md](docs/PACKAGED_APP_VALIDATION.md)
 
 ## Architecture Summary
 
@@ -109,6 +132,14 @@ Each successful conversion writes:
   readable XML payload for inspection and troubleshooting
 - `*.canonical.json`
   canonical estimate data used to build the export
+
+Source-mode default output:
+
+- `sample_output/generated/`
+
+Packaged-executable default output:
+
+- `%USERPROFILE%\Documents\PDF TO ESX AGENT\generated`
 
 ## Docs Index
 
@@ -150,6 +181,8 @@ Implementation/build-phase docs that still matter:
 - [docs/TESTING_NOTES.md](docs/TESTING_NOTES.md)
 - [docs/KNOWN_LIMITATIONS.md](docs/KNOWN_LIMITATIONS.md)
 - [docs/FINAL_BUILD_STATUS.md](docs/FINAL_BUILD_STATUS.md)
+- [docs/WINDOWS_EXE_BUILD.md](docs/WINDOWS_EXE_BUILD.md)
+- [docs/PACKAGED_APP_VALIDATION.md](docs/PACKAGED_APP_VALIDATION.md)
 
 ## Contributor Direction
 
@@ -175,6 +208,9 @@ The current codebase has been validated with:
 - automated tests in `tests/`
 - `python -m compileall`
 - clean-environment reinstall and UI startup smoke
+- packaged executable startup smoke
+- packaged executable real conversion smoke
+- copied-release-folder packaged validation from a temp path outside the repo
 - real estimate-PDF conversion runs against multiple source-agent fixtures
 
 See:
@@ -186,7 +222,7 @@ See:
 - the `.esx` package is standards-based, not a native proprietary `XACTDOC.ZIPXML` writer
 - parser coverage is meaningful but still heuristic
 - OCR-heavy layouts remain the weakest extraction area
-- the app is not yet packaged as a standalone installer or `.exe`
+- the packaged build is Windows-only and uses an `onedir` distribution for reliability
 
 See:
 
@@ -215,7 +251,3 @@ See:
 
 - [LICENSE](LICENSE)
 - [OPEN_SOURCE_PHILOSOPHY.md](OPEN_SOURCE_PHILOSOPHY.md)
-=======
-# PDF-TO-ESX-
-Convert real-world insurance estimate PDFs into structured ESX files using a local parsing and normalization pipeline. Built for contractors, public adjusters, and developers working with claim data.
->>>>>>> 7f84b834eac048021de8460669cdf5d6aa451cd5

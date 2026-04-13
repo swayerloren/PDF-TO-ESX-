@@ -41,4 +41,5 @@
 ## Desktop Runtime
 
 - The app is designed for Windows + VS Code + local Python.
-- It is not currently packaged as a standalone installer or `.exe`.
+- The repo now builds a Windows `onedir` executable through PyInstaller.
+- It still does not ship as an installer or signed desktop release.

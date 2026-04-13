@@ -4,6 +4,42 @@ All notable changes to `PDF TO ESX AGENT` should be documented here.
 
 The current repo is still early-stage, so version notes should stay honest about what is implemented, what is heuristic, and what is still assumed.
 
+## v0.2.0 - 2026-04-12 - Windows Packaging Milestone
+
+Release status:
+
+- packaged Windows `onedir` build added
+- frozen-mode runtime hardening completed
+- packaged validation documented and verified
+
+### Added
+
+- checked-in PyInstaller spec file
+- PowerShell and batch build scripts
+- packaged-app validation guide
+- frozen-mode settings coverage in automated tests
+
+### Changed
+
+- frozen-mode path resolution now prefers Windows known folders
+- packaged logging is file-only and stored under LocalAppData
+- default packaged output remains user-writable and is created lazily
+- release docs now describe how to distribute the full packaged folder
+- packaging cleanup removes transient metadata folders from the final bundle
+
+### Validation At This Version
+
+- copied-release-folder packaged startup smoke
+- packaged real conversion smoke with explicit output path
+- packaged real conversion smoke with default output path
+- no new `conhost.exe` observed during packaged GUI launch
+- automated unit tests and compile check
+
+### Known Limits At This Version
+
+- packaged release artifact is still `onedir`, not an installer
+- executable signing and richer Windows metadata are still pending
+
 ## v0.1.0 - 2026-04-12 - Initial Working Foundation
 
 Release status:
@@ -27,6 +63,7 @@ Release status:
 - initial automated tests for writer validation, conversion rejection cases, and deterministic output naming
 - implementation docs in `docs/`
 - long-term documentation foundation in `docs_repo/`
+- repeatable PyInstaller packaging with `PDF-TO-ESX-Agent.spec` and Windows build scripts
 
 ### Changed During Hardening
 
@@ -35,12 +72,14 @@ Release status:
 - improved success and warning clarity in the UI
 - improved logging consistency across conversion, parsing, OCR, and export stages
 - made merged output naming deterministic regardless of file-selection order
+- added frozen-mode settings for packaged logs and user output folders
 
 ### Validation At This Version
 
 - automated unit tests
 - compile check
 - clean-environment reinstall and UI startup smoke
+- packaged executable build and startup/conversion smoke
 - real conversion validation across multiple estimate-PDF layouts from the source-agent fixture set
 
 ### Known Limits At This Version
@@ -48,3 +87,4 @@ Release status:
 - standards-based `.esx` packaging only, not native proprietary `XACTDOC.ZIPXML`
 - parser coverage is heuristic rather than universal
 - OCR-heavy layouts remain the weakest extraction area
+- packaged release artifact is `onedir`, not an installer

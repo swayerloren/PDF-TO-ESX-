@@ -7,6 +7,7 @@ The project currently uses three practical layers of verification:
 1. unit/smoke tests in `tests/`
 2. clean-environment startup verification
 3. real PDF conversion runs against local fixtures
+4. packaged executable build and startup/conversion smoke
 
 ## Automated Coverage Today
 
@@ -19,6 +20,7 @@ Current automated checks cover:
 - invalid output-folder rejection
 - deterministic output naming and filename sanitization
 - clean-environment install and UI startup smoke
+- source-vs-frozen settings behavior
 
 ## Commands
 
@@ -26,6 +28,7 @@ Current automated checks cover:
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 .\.venv\Scripts\python.exe -m compileall src run_app.py tests
 .\scripts\Verify-Clean-Environment.ps1
+.\scripts\Build-Windows-Exe.ps1
 ```
 
 ## Real-World Validation

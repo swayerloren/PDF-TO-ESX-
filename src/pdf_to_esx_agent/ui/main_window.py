@@ -428,10 +428,15 @@ class MainWindow:
         self._set_banner("error", "Conversion failed. Review the validation panel and log below.")
         self._append_log(message)
         validation_messages = [ValidationMessage("error", message)]
+        log_path = self._settings.logs_dir / "pdf_to_esx_agent.log"
         if trace:
             self._append_log(trace)
             validation_messages.append(
-                ValidationMessage("info", "Full stack trace was written to logs/pdf_to_esx_agent.log.")
+                ValidationMessage("info", f"Full stack trace was written to {log_path}.")
+            )
+        else:
+            validation_messages.append(
+                ValidationMessage("info", f"Runtime log file: {log_path}")
             )
         self._append_validation_messages(validation_messages)
         messagebox.showerror(self._settings.app_title, message)

@@ -29,7 +29,8 @@ Because estimate PDFs are noisy and inconsistent. The canonical model isolates p
 Start with:
 
 - [./05_TESTING_AND_DEBUG/DEBUGGING_GUIDE.md](./05_TESTING_AND_DEBUG/DEBUGGING_GUIDE.md)
-- `logs/pdf_to_esx_agent.log`
+- source log: `logs/pdf_to_esx_agent.log`
+- packaged log: `%LOCALAPPDATA%\PDF-TO-ESX-Agent\logs\pdf_to_esx_agent.log`
 - the generated `*.canonical.json`
 
 ## Where do I add support for a new carrier layout?
@@ -60,6 +61,10 @@ The source repo contained useful patterns for OCR-aware ingestion, staged parsin
 ## Is the project cross-platform?
 
 The current target is Windows + local Python + VS Code. The code is mostly Python, but the app and scripts are documented and validated primarily for Windows.
+
+## Can I ship this to a non-developer without asking them to install Python?
+
+Yes. The repo now includes a PyInstaller-based Windows `onedir` build that produces `dist\PDF-TO-ESX-Agent\PDF-TO-ESX-Agent.exe`.
 
 ## What are the best first contributions?
 

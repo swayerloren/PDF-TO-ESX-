@@ -2,7 +2,8 @@
 
 ## Main Log File
 
-- `logs/pdf_to_esx_agent.log`
+- source mode: `logs/pdf_to_esx_agent.log`
+- packaged mode: `%LOCALAPPDATA%\PDF-TO-ESX-Agent\logs\pdf_to_esx_agent.log`
 
 ## Logging Setup
 
@@ -74,3 +75,4 @@ $env:PDF_TO_ESX_DEBUG = "1"
 - [./ERROR_HANDLING_REFERENCE.md](./ERROR_HANDLING_REFERENCE.md)
 - [../05_TESTING_AND_DEBUG/DEBUGGING_GUIDE.md](../05_TESTING_AND_DEBUG/DEBUGGING_GUIDE.md)
 - [../02_ARCHITECTURE/DATA_FLOW_END_TO_END.md](../02_ARCHITECTURE/DATA_FLOW_END_TO_END.md)
+- [../../docs/WINDOWS_EXE_BUILD.md](../../docs/WINDOWS_EXE_BUILD.md)

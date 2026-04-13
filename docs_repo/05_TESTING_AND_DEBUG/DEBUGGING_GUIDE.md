@@ -5,7 +5,9 @@
 When something goes wrong, inspect in this order:
 
 1. the UI validation panel
-2. `logs/pdf_to_esx_agent.log`
+2. the runtime log file
+   source mode: `logs/pdf_to_esx_agent.log`
+   packaged mode: `%LOCALAPPDATA%\PDF-TO-ESX-Agent\logs\pdf_to_esx_agent.log`
 3. the generated `*.canonical.json` if export succeeded with warnings
 4. the generated `*.esx.xml` if XML shape looks suspicious
 
@@ -22,7 +24,8 @@ When something goes wrong, inspect in this order:
 
 ## Useful Artifacts
 
-- `logs/pdf_to_esx_agent.log`
+- source log: `logs/pdf_to_esx_agent.log`
+- packaged log: `%LOCALAPPDATA%\PDF-TO-ESX-Agent\logs\pdf_to_esx_agent.log`
 - `*.canonical.json`
 - `*.esx.xml`
 - `docs/TESTING_NOTES.md`

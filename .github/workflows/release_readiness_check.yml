@@ -24,13 +24,26 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt
+          python -m pip install -r requirements-build.txt
 
       - name: Run unit tests
         run: python -m unittest discover -s tests -v
 
       - name: Run compile validation
         run: python -m compileall src run_app.py tests
+
+      - name: Build Windows executable
+        shell: pwsh
+        run: .\scripts\Build-Windows-Exe.ps1
+
+      - name: Verify packaged executable exists
+        shell: pwsh
+        run: |
+          $exePath = Join-Path $PWD "dist\PDF-TO-ESX-Agent\PDF-TO-ESX-Agent.exe"
+          if (-not (Test-Path $exePath)) {
+              throw "Expected packaged executable was not produced: $exePath"
+          }
+          Write-Host "Packaged executable present: $exePath"
 
       - name: Validate markdown links
         shell: pwsh
@@ -83,6 +96,10 @@ jobs:
               "OPEN_SOURCE_PHILOSOPHY.md",
               "MAINTAINER_GUIDE.md",
               "PUBLIC_RELEASE_NOTES_DRAFT.md",
+              "PDF-TO-ESX-Agent.spec",
+              "docs/WINDOWS_EXE_BUILD.md",
+              "scripts/Build-Windows-Exe.ps1",
+              "scripts/Build-Windows-Exe.bat",
               ".github/ISSUE_TEMPLATE/bug_report.md",
               ".github/ISSUE_TEMPLATE/feature_request.md",
               ".github/ISSUE_TEMPLATE/parser_layout_support.md",

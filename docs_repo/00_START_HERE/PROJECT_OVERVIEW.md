@@ -28,7 +28,15 @@ The core workflow is:
 - it does not call cloud OCR or remote parsing APIs
 - it does not write the proprietary Xactimate `XACTDOC.ZIPXML` format
 - it does not guarantee perfect extraction for every carrier layout
-- it is not packaged yet as a standalone `.exe` installer
+- it does not yet ship as an installer or signed desktop release
+
+## Packaging Status
+
+The repo now includes a repeatable PyInstaller Windows `onedir` build that produces:
+
+- `dist\PDF-TO-ESX-Agent\PDF-TO-ESX-Agent.exe`
+
+That packaged build has been validated for startup and a real conversion smoke, but it is still a developer-built artifact rather than an installer experience.
 
 ## Main Runtime Entry Points
 

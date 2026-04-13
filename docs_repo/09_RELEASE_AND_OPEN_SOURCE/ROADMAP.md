@@ -27,6 +27,7 @@ This roadmap is intentionally conservative. It reflects what would most improve 
 - more explicit carrier/layout tagging in warnings
 - better sharable sample strategy for open-source testing
 - stronger validation around assumptions in the current XML package
+- installer/signing evaluation for public Windows distribution
 
 ## Long-Term Work
 

@@ -14,7 +14,10 @@ Use this checklist before cutting a public release or promoting a new tag heavil
 - run unit tests
 - run `python -m compileall`
 - run `.\scripts\Verify-Clean-Environment.ps1`
+- run `.\scripts\Build-Windows-Exe.ps1`
+- launch the packaged executable once
 - run at least one real PDF conversion smoke test if local fixtures are available
+- run at least one real packaged conversion smoke if local fixtures are available
 - inspect the generated `*.canonical.json` and `*.esx.xml`
 
 ## Documentation And Versioning
